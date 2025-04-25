@@ -1,6 +1,9 @@
 const express = require("express");
 const Admission = require("../models/admission");
 
+const router = express.Router();
+
+
   router.get('/', (req, res) => {
     res.render('index', { title: 'Home' });
   });
@@ -18,34 +21,34 @@ const Admission = require("../models/admission");
     res.redirect('/success');
   });
   
-  // router.post('/admission', async (req, res) => {
-  //   try {
-  //     const newAdmission = new Admission(req.body);
-  //     await newAdmission.save();
-  //     res.render('success', { title: 'Success' });
-  //   } catch (err) {
-  //     res.status(500).send('Error submitting form');
-  //   }
-  // });  
+  router.post('/admission', async (req, res) => {
+    try {
+      const newAdmission = new Admission(req.body);
+      await newAdmission.save();
+      res.render('success', { title: 'Success' });
+    } catch (err) {
+      res.status(500).send('Error submitting form');
+    }
+  });  
 
-  //const upload = require('../middleware/uploads'); // adjust path as needed
+  const upload = require('../middleware/uploads'); // adjust path as needed
 
-router.post('/admission', upload.single('resume'), async (req, res) => {
-  try {
-    const newAdmission = new Admission({
-      name: req.body.name,
-      email: req.body.email,
-      course: req.body.course,
-      resume: req.file ? req.file.filename : null
-    });
+// router.post('/admission', uploads.single('resume'), async (req, res) => {
+//   try {
+//     const newAdmission = new Admission({
+//       name: req.body.name,
+//       email: req.body.email,
+//       course: req.body.course,
+//       resume: req.file ? req.file.filename : null
+//     });
 
-    await newAdmission.save();
-    res.render('success', { title: 'Success' });
-  } catch (err) {
-    console.error('Form save error:', err);
-    res.status(500).send('Error submitting form');
-  }
-});
+//     await newAdmission.save();
+//     res.render('success', { title: 'Success' });
+//   } catch (err) {
+//     console.error('Form save error:', err);
+//     res.status(500).send('Error submitting form');
+//   }
+// });
 
 // Backend-only route: GET all admissions as JSON
 router.get('/list', async (req, res) => {
@@ -113,3 +116,4 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+
