@@ -8,14 +8,8 @@ const app = express();
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 const upload = require('./uploads'); 
-
-
 app.set('view engine', 'hbs');
-
-
 app.set('views', path.join(__dirname, 'views'));
-//app.use(express.static(path.join(__dirname, 'public')));
-
 
 connectDB();
 app.use(uploads); 
@@ -29,9 +23,7 @@ app.get("/", (req, res) => {
 app.get('/admission', (req, res) => {
     res.render('admission');
   });
-// app.post('/admission', (req, res) => {
-//     res.send('Form submitted successfully!');
-//   });
+
   
 app.post('/admission', async (req, res) => {
   try {
