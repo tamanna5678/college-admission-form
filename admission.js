@@ -11,6 +11,6 @@ const AdmissionSchema = new mongoose.Schema({
   resume: { type: String } // filename of uploaded file
 }, { timestamps: true });
 
-module.exports = mongoose.model("Admission", AdmissionSchema);
+module.exports = mongoose.model("admission", AdmissionSchema);
 
 
